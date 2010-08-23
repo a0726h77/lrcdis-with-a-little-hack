@@ -290,7 +290,7 @@ DOWNLRC() {
   	gb="$(echo -n "$nm" | iconv -c -t gbk | od -t x1 -A n -w1000|tr " " "%")"
 
 	#从歌词搜索里面找出当前歌曲的歌词下载页，默认从搜狗下
-  	link="`eval "\${Uri:-SOGOU_URI} \"\$gb\" \"\$2\""`"
+  	link="`eval "\${Uri:-QIANQIAN_URI} \"\$gb\" \"\$2\""`"
 	DEBUGECHO "Link: $link"
 	[ "$link" ] && {
 		if [ "$Uri" = "QIANQIAN_URI" ];then 
@@ -303,6 +303,9 @@ DOWNLRC() {
 		xmllint /tmp/lrcdisTMP.xml --encode UTF-8 2>/dev/null > /tmp/lrcdisTMP.lrc && {
 			cat /tmp/lrcdisTMP.lrc | head -n -1 | tail -n +3 > "$file"
 		}
+		mv "$file" "$file.bak"
+		cconv -f UTF8-CN -t UTF8-TW "$file.bak" > "$file"
+		rm "$file.bak"
 		rm /tmp/lrcdisTMP* &>/dev/null
 	}
 }
