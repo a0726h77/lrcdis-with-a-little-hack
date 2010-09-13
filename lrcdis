@@ -947,6 +947,8 @@ pltm="`GET_PLTM $Player`"
 #TODO 目前PlayerStat的值只有Unknow和Playing,以后可以考虑加入Pause等状态.
 PlayerStat="Unknow"
 
+# clear terminal screen
+clear
 GET_STAT |while read line0;do
 	[ "$Dismode" = "fifo" -a -p "/dev/shm/lrcfifo" ] && echo -n "">/dev/shm/lrcfifo #防止读lrcfifo时等待 amoblin 4.14 9:49 #非fifo模式不必要生成该文件 bones7456
 	DEBUGECHO "GET_STAT: $line0<<"
